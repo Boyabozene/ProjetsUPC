@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Tableau de bord | Energy+</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Energy+</a>
+  </div>
+</nav>
+<div class="container mt-4">
+  <h2>Consommation du jour</h2>
+  <button id="simulateBtn" class="btn btn-outline-primary mb-3">Simuler consommation</button>
+  <canvas id="consumptionChart" height="120"></canvas>
+  <hr>
+  <h2>Factures</h2>
+  <button id="generateInvoice" class="btn btn-primary mb-3">Générer facture</button>
+  <table class="table table-bordered" id="invoiceTable">
+    <thead><tr><th>ID</th><th>Montant (FC)</th><th>Statut</th><th>Date</th><th>Action</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const ctx = document.getElementById('consumptionChart').getContext('2d');
+const chart = new Chart(ctx,{
+  type:'bar',
+  data:{labels:[],datasets:[{label:'kWh',data:[]}]}
+});
+async function simulate(){
+  await fetch('../api/consumption.php',{credentials:'include'});
+  const today=new Date().toLocaleDateString('fr-FR');
+  chart.data.labels.push(today);
+  chart.data.datasets[0].data.push(Math.floor(Math.random()*15+5));
+  chart.update();
+}
+simulateBtn.onclick=simulate;
+
+async function loadInvoices(){
+  const res=await fetch('../api/invoice.php?action=list',{credentials:'include'});
+  if(!res.ok)return;
+  const data=await res.json();
+  const tbody=document.querySelector('#invoiceTable tbody');
+  tbody.innerHTML='';
+  data.forEach(inv=>{
+    tbody.insertAdjacentHTML('beforeend',`<tr>
+      <td>${inv.id}</td><td>${inv.amount}</td><td>${inv.status}</td><td>${inv.issued_at}</td>
+      <td>${inv.status==='unpaid'?'<button class="btn btn-success btn-sm payBtn" data-id="'+inv.id+'">Payer</button>':''}</td>
+    </tr>`);
+  });
+}
+generateInvoice.onclick=async()=>{await fetch('../api/invoice.php?action=generate',{credentials:'include'});loadInvoices();}
+document.querySelector('#invoiceTable').addEventListener('click',async e=>{
+  if(e.target.classList.contains('payBtn')){
+    const id=e.target.dataset.id;
+    const fd=new FormData();fd.append('invoice_id',id);
+    await fetch('../api/invoice.php?action=pay',{method:'POST',body:fd,credentials:'include'});
+    loadInvoices();
+  }
+});
+loadInvoices();
+</script>
+</body>
+</html>
