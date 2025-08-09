@@ -1,0 +1,327 @@
+/* ===== VARIABLES CSS GLOBALES ===== */
+:root {
+    /* Couleurs principales */
+    --primary: #1e3a8a;              /* Bleu principal foncé */
+    --primary-light: #3b82f6;        /* Bleu principal clair */
+    --primary-dark: #1e40af;         /* Bleu principal très foncé */
+    --secondary: #475569;            /* Gris secondaire */
+    --accent: #0ea5e9;               /* Bleu accent (cyan) */
+    
+    /* Couleurs de fond */
+    --bg-light: #f8fafc;             /* Arrière-plan clair */
+    --bg-dark: #0f172a;              /* Arrière-plan sombre */
+    
+    /* Couleurs de texte */
+    --text: #0f172a;                 /* Texte principal sombre */
+    --text-light: #475569;           /* Texte secondaire gris */
+    --white: #ffffff;                /* Blanc pur */
+    
+    /* Bordures et effets */
+    --border: #e2e8f0;               /* Couleur des bordures */
+    --shadow: 0 4px 12px rgba(15, 23, 42, 0.08);      /* Ombre douce */
+    --shadow-lg: 0 10px 40px rgba(15, 23, 42, 0.12);  /* Ombre marquée */
+    --radius: 0.75rem;               /* Rayon de bordure standard */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transition fluide */
+}
+
+/* ===== ANIMATION DE CHARGEMENT DE PAGE ===== */
+.page-loader {
+    position: fixed;                 /* Positionnement fixe pour couvrir toute la page */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);      /* Fond bleu principal */
+    display: flex;                   /* Flexbox pour centrage */
+    align-items: center;             /* Centrage vertical */
+    justify-content: center;         /* Centrage horizontal */
+    z-index: 10000;                  /* Au-dessus de tout le contenu */
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Transition de disparition */
+}
+
+.loader-content {
+    text-align: center;              /* Centrage du texte */
+    color: white;                    /* Texte blanc */
+}
+
+/* Spinner de chargement */
+.loader-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.2);      /* Bordure transparente */
+    border-top: 4px solid white;                      /* Bordure supérieure blanche */
+    border-radius: 50%;                               /* Forme circulaire */
+    animation: spin 1s linear infinite;               /* Animation de rotation */
+    margin: 0 auto 20px;                              /* Centrage et espacement */
+}
+
+/* Animation de rotation du spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* État caché du loader */
+.page-loader.hidden {
+    opacity: 0;                      /* Invisible */
+    visibility: hidden;              /* Non visible pour les lecteurs d'écran */
+}
+
+/* ===== STYLES DE BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;          /* Inclure padding/border dans la taille */
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Police moderne */
+    background: var(--bg-light);     /* Arrière-plan clair */
+    color: var(--text);              /* Texte sombre */
+    line-height: 1.6;                /* Hauteur de ligne pour lisibilité */
+    overflow-x: hidden;              /* Empêcher défilement horizontal */
+    opacity: 0;                      /* Invisible au chargement */
+    animation: fadeInPage 0.8s ease-out forwards; /* Animation d'apparition */
+    animation-delay: 0.5s;           /* Délai avant apparition */
+}
+
+/* Animation d'apparition de la page */
+@keyframes fadeInPage {
+    to { opacity: 1; }
+}
+
+/* ===== BARRE DE NAVIGATION ===== */
+.navbar {
+    background: var(--white) !important; /* Fond blanc */
+    box-shadow: var(--shadow);           /* Ombre douce */
+    backdrop-filter: blur(12px);         /* Effet de flou en arrière-plan */
+    padding: 1rem 0;                     /* Espacement vertical */
+}
+
+.navbar-brand {
+    font-weight: 800;                    /* Police très grasse */
+    font-size: 1.6rem;                   /* Grande taille */
+    color: var(--primary) !important;    /* Couleur bleu principal */
+    transition: var(--transition);       /* Transition fluide */
+}
+
+/* Effet de survol du logo */
+.navbar-brand:hover {
+    transform: scale(1.05);              /* Légère augmentation de taille */
+}
+
+.nav-link {
+    color: var(--text) !important;       /* Couleur du texte */
+    font-weight: 500;                    /* Police moyenne */
+    margin-left: 1rem;                   /* Espacement à gauche */
+    position: relative;                  /* Pour pseudo-éléments */
+    transition: var(--transition);       /* Transition fluide */
+    padding: 0.5rem 1rem !important;     /* Espacement interne */
+    border-radius: var(--radius);        /* Coins arrondis */
+}
+
+/* Ligne de soulignement animée pour les liens */
+.nav-link::after {
+    content: '';                         /* Contenu vide */
+    position: absolute;                  /* Positionnement absolu */
+    bottom: -5px;                        /* Position sous le lien */
+    left: 50%;                          /* Centré horizontalement */
+    width: 0%;                          /* Largeur initiale nulle */
+    height: 2px;                        /* Hauteur de la ligne */
+    background: var(--primary);         /* Couleur bleue */
+    transition: var(--transition);       /* Transition fluide */
+    transform: translateX(-50%);        /* Centrage parfait */
+}
+
+/* Effet de survol des liens de navigation */
+.nav-link:hover {
+    background: rgba(30, 58, 138, 0.05); /* Fond bleu très clair */
+    color: var(--primary) !important;     /* Couleur bleue */
+}
+
+.nav-link:hover::after {
+    width: 80%;                          /* Largeur de la ligne au survol */
+}
+
+/* ===== SECTION HERO (EN-TÊTE PRINCIPAL) ===== */
+header {
+    background: var(--white);            /* Fond blanc */
+    margin: 3rem auto;                   /* Centrage et espacement */
+    max-width: 800px;                    /* Largeur maximale */
+    padding: 4rem 2rem;                  /* Espacement interne généreux */
+    border-radius: var(--radius);        /* Coins arrondis */
+    box-shadow: var(--shadow-lg);        /* Ombre marquée */
+    position: relative;                  /* Pour pseudo-éléments */
+    text-align: center;                  /* Texte centré */
+    border-top: 4px solid var(--primary); /* Bordure supérieure bleue */
+    animation: slideInUp 0.6s ease-out;  /* Animation d'entrée */
+}
+
+/* Animation d'entrée par le bas */
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Titre principal */
+header h1 {
+    font-size: 3rem;                     /* Grande taille */
+    font-weight: 800;                    /* Police très grasse */
+    color: var(--primary);               /* Couleur bleue */
+    margin-bottom: 1.5rem;               /* Espacement sous le titre */
+    animation: slideInDown 0.8s ease-out; /* Animation d'entrée par le haut */
+}
+
+/* Animation d'entrée par le haut */
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sous-titre */
+header .lead {
+    font-size: 1.2rem;                   /* Taille moyenne */
+    color: var(--text-light);            /* Couleur grise */
+    margin-bottom: 2rem;                 /* Espacement sous le sous-titre */
+    animation: slideInUp 0.8s ease-out;  /* Animation d'entrée */
+    animation-delay: 0.2s;               /* Délai d'animation */
+    animation-fill-mode: both;           /* Maintenir les styles avant/après animation */
+}
+
+/* ===== BOUTON PRINCIPAL ===== */
+.btn-primary {
+    background: var(--primary) !important;      /* Fond bleu principal */
+    border: none !important;                    /* Pas de bordure */
+    padding: 1rem 2.5rem !important;            /* Espacement interne généreux */
+    font-size: 1.1rem !important;               /* Taille de police augmentée */
+    font-weight: 600 !important;                /* Police semi-grasse */
+    border-radius: 999px !important;            /* Coins très arrondis (pilule) */
+    color: white !important;                    /* Texte blanc */
+    box-shadow: var(--shadow) !important;       /* Ombre douce */
+    transition: var(--transition) !important;   /* Transition fluide */
+    position: relative !important;              /* Pour pseudo-éléments */
+    overflow: hidden !important;                /* Cacher débordement */
+    text-transform: uppercase !important;       /* Texte en majuscules */
+    letter-spacing: 0.5px !important;           /* Espacement des lettres */
+    animation: slideInUp 0.8s ease-out;         /* Animation d'entrée */
+    animation-delay: 0.4s;                      /* Délai d'animation */
+    animation-fill-mode: both;                  /* Maintenir les styles */
+}
+
+/* Effet de survol du bouton principal */
+.btn-primary:hover {
+    background: var(--primary-light) !important; /* Couleur plus claire au survol */
+    transform: translateY(-3px);                 /* Élévation au survol */
+    box-shadow: var(--shadow-lg) !important;     /* Ombre plus marquée */
+}
+
+/* Effet de brillance au survol */
+.btn-primary::before {
+    content: '';                                /* Contenu vide */
+    position: absolute;                         /* Positionnement absolu */
+    top: 0;
+    left: -100%;                               /* Démarrer hors du bouton */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Brillance */
+    transition: left 0.5s ease;                /* Animation de déplacement */
+}
+
+.btn-primary:hover::before {
+    left: 100%;                                /* Traverser le bouton au survol */
+}
+
+/* ===== PIED DE PAGE ===== */
+footer {
+    color: var(--text-light);                  /* Couleur grise */
+    font-weight: 500;                          /* Police moyenne */
+    text-align: center;                        /* Texte centré */
+    padding: 2rem 0;                           /* Espacement vertical */
+    animation: fadeIn 1s ease-out;             /* Animation d'apparition */
+    animation-delay: 0.6s;                     /* Délai d'animation */
+    animation-fill-mode: both;                 /* Maintenir les styles */
+}
+
+/* Animation d'apparition simple */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===== PARTICULES DÉCORATIVES ===== */
+.particles {
+    position: fixed;                           /* Positionnement fixe */
+    inset: 0;                                 /* Couvrir toute la page */
+    pointer-events: none;                     /* Ne pas interférer avec les clics */
+    z-index: -1;                              /* Derrière le contenu */
+}
+
+.particle {
+    position: absolute;                       /* Positionnement absolu */
+    background: rgba(30, 58, 138, 0.08);     /* Couleur bleue semi-transparente */
+    border-radius: 50%;                       /* Forme circulaire */
+    animation: float 8s ease-in-out infinite; /* Animation de flottement */
+}
+
+/* Positionnement et tailles différentes pour chaque particule */
+.particle:nth-child(1) { 
+    width: 18px; 
+    height: 18px; 
+    top: 15%; 
+    left: 20%; 
+    animation-delay: 0s;                      /* Pas de délai */
+}
+
+.particle:nth-child(2) { 
+    width: 24px; 
+    height: 24px; 
+    top: 60%; 
+    left: 80%; 
+    animation-delay: 2s;                      /* Délai de 2 secondes */
+}
+
+.particle:nth-child(3) { 
+    width: 30px; 
+    height: 30px; 
+    top: 40%; 
+    left: 35%; 
+    animation-delay: 4s;                      /* Délai de 4 secondes */
+}
+
+/* Animation de flottement des particules */
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px);           /* Position normale */
+        opacity: 0.3;                         /* Opacité faible */
+    }
+    50% { 
+        transform: translateY(-20px);         /* Élévation au milieu */
+        opacity: 0.7;                         /* Opacité plus forte */
+    }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+/* Styles pour écrans mobiles et tablettes */
+@media (max-width: 768px) {
+    header {
+        margin: 2rem 1rem;                    /* Réduire les marges sur mobile */
+        padding: 3rem 1.5rem;                 /* Réduire l'espacement interne */
+    }
+
+    header h1 {
+        font-size: 2.2rem;                    /* Réduire la taille du titre */
+    }
+
+    .btn-primary {
+        padding: 0.8rem 2rem !important;      /* Réduire l'espacement du bouton */
+        font-size: 1rem !important;           /* Réduire la taille de police */
+    }
+
+    .nav-link {
+        margin-left: 0.5rem;                  /* Réduire l'espacement des liens */
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem;                    /* Réduire la taille du logo */
+    }
+}

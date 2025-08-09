@@ -1,0 +1,360 @@
+/* ===== VARIABLES CSS GLOBALES ===== */
+:root {
+  /* Couleurs principales */
+  --primary: #2563eb;           /* Bleu principal */
+  --accent: #3b82f6;           /* Bleu accent */
+  --success: #10b981;          /* Vert succès */
+  --warning: #f59e0b;          /* Orange avertissement */
+  --danger: #dc2626;           /* Rouge danger */
+  
+  /* Couleurs de texte */
+  --text: #1e293b;             /* Texte principal sombre */
+  --text-light: #64748b;       /* Texte secondaire gris */
+  
+  /* Couleurs de fond */
+  --bg: #f1f5f9;               /* Arrière-plan de la page */
+  --white: #ffffff;            /* Blanc pur */
+  
+  /* Effets visuels */
+  --gradient: linear-gradient(135deg, #3b82f6, #6366f1);  /* Dégradé bleu */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);             /* Ombre douce */
+  --radius: 1rem;              /* Rayon de bordure par défaut */
+  --transition: all 0.3s ease; /* Transition fluide */
+}
+
+/* ===== RESET ET STYLES DE BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;       /* Inclure padding/border dans la taille */
+}
+
+body {
+  font-family: 'Inter', sans-serif;  /* Police moderne */
+  background: var(--bg);             /* Arrière-plan gris clair */
+  color: var(--text);                /* Texte sombre */
+  min-height: 100vh;                 /* Hauteur minimale plein écran */
+}
+
+/* ===== BARRE DE NAVIGATION ===== */
+.navbar {
+  background: var(--white) !important;                    /* Fond blanc */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);          /* Bordure subtile */
+  box-shadow: var(--shadow);                              /* Ombre douce */
+}
+
+.navbar-brand {
+  font-weight: 800;                                       /* Police très grasse */
+  font-size: 1.5rem;                                      /* Taille de police */
+  background: var(--gradient);                            /* Dégradé bleu */
+  -webkit-background-clip: text;                          /* Appliquer le dégradé au texte */
+  -webkit-text-fill-color: transparent;                   /* Rendre le texte transparent pour voir le dégradé */
+}
+
+/* ===== BOUTON DE DÉCONNEXION ===== */
+#logoutBtn {
+  background: var(--danger) !important;                   /* Fond rouge danger */
+  border: none !important;                                /* Pas de bordure */
+  color: white !important;                                /* Texte blanc */
+  font-weight: 600 !important;                            /* Police semi-grasse */
+  padding: 0.5rem 1rem !important;                        /* Espacement interne */
+  border-radius: 999px !important;                        /* Coins très arrondis (pilule) */
+  transition: var(--transition) !important;               /* Transition fluide */
+  position: relative !important;                          /* Positionnement relatif pour pseudo-éléments */
+  overflow: hidden !important;                            /* Cacher débordement pour effets */
+  text-transform: uppercase !important;                   /* Texte en majuscules */
+  letter-spacing: 0.5px !important;                       /* Espacement des lettres */
+  box-shadow: var(--shadow) !important;                   /* Ombre douce */
+}
+
+/* Effet de survol du bouton de déconnexion */
+#logoutBtn:hover {
+  background: #b91c1c !important;                         /* Rouge plus foncé au survol */
+  transform: translateY(-2px) !important;                 /* Légère élévation */
+  box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3) !important; /* Ombre rouge plus marquée */
+}
+
+/* Effet de brillance au survol */
+#logoutBtn::before {
+  content: '';                                            /* Contenu vide pour pseudo-élément */
+  position: absolute;                                     /* Positionnement absolu */
+  top: 0;
+  left: -100%;                                           /* Démarrer hors du bouton */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Brillance */
+  transition: left 0.5s ease;                            /* Animation de déplacement */
+}
+
+#logoutBtn:hover::before {
+  left: 100%;                                            /* Traverser le bouton au survol */
+}
+
+/* ===== CONTENEUR PRINCIPAL ===== */
+.container {
+  max-width: 1200px;                                     /* Largeur maximale */
+  padding: 2rem 1rem;                                    /* Espacement interne */
+  margin: auto;                                          /* Centrage automatique */
+}
+
+/* ===== SECTIONS DE CONTENU ===== */
+.section {
+  background: var(--white);                              /* Fond blanc */
+  padding: 2rem;                                         /* Espacement interne généreux */
+  border-radius: var(--radius);                          /* Coins arrondis */
+  box-shadow: var(--shadow);                             /* Ombre douce */
+  margin-bottom: 2rem;                                   /* Espacement entre sections */
+  animation: fadeIn 0.5s ease-out;                       /* Animation d'apparition */
+}
+
+.section h2 {
+  font-size: 1.6rem;                                     /* Taille de titre */
+  font-weight: 700;                                      /* Police grasse */
+  margin-bottom: 1rem;                                   /* Espacement sous le titre */
+  color: var(--text);                                    /* Couleur du texte */
+  display: flex;                                         /* Flexbox pour alignement */
+  align-items: center;                                   /* Centrage vertical */
+  gap: 0.5rem;                                          /* Espacement entre éléments */
+}
+
+/* ===== CARTES DE STATISTIQUES TEMPS RÉEL ===== */
+.stats-card {
+  background: linear-gradient(135deg, var(--white), #f8fafc); /* Dégradé subtil */
+  padding: 2rem;                                         /* Espacement interne */
+  border-radius: var(--radius);                          /* Coins arrondis */
+  box-shadow: var(--shadow);                             /* Ombre douce */
+  text-align: center;                                    /* Texte centré */
+  transition: var(--transition);                         /* Transition fluide */
+  border: 2px solid transparent;                         /* Bordure invisible par défaut */
+  position: relative;                                    /* Pour pseudo-éléments */
+  overflow: hidden;                                      /* Cacher débordement */
+}
+
+/* Barre colorée en haut de chaque carte */
+.stats-card::before {
+  content: '';                                          /* Contenu vide */
+  position: absolute;                                   /* Positionnement absolu */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;                                         /* Hauteur de la barre */
+  background: var(--gradient);                         /* Dégradé bleu */
+}
+
+/* Effet de survol des cartes statistiques */
+.stats-card:hover {
+  transform: translateY(-4px);                         /* Élévation au survol */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);         /* Ombre plus marquée */
+  border-color: var(--primary);                       /* Bordure bleue visible */
+}
+
+/* Valeurs numériques dans les cartes */
+.stats-value {
+  font-size: 2.5rem;                                  /* Grande taille de police */
+  font-weight: 800;                                   /* Police très grasse */
+  background: var(--gradient);                        /* Dégradé bleu */
+  -webkit-background-clip: text;                      /* Appliquer au texte */
+  -webkit-text-fill-color: transparent;               /* Texte transparent pour voir le dégradé */
+  margin-bottom: 0.5rem;                              /* Espacement sous la valeur */
+  transition: var(--transition);                      /* Transition fluide */
+  animation: pulse 2s ease-in-out infinite;           /* Animation de pulsation */
+}
+
+/* Animation de pulsation pour les valeurs */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);                               /* Taille normale */
+  }
+  50% {
+    transform: scale(1.05);                            /* Légère augmentation */
+  }
+}
+
+/* Labels des cartes statistiques */
+.stats-label {
+  font-size: 0.95rem;                                 /* Taille de police moyenne */
+  color: var(--text-light);                          /* Couleur grise */
+  font-weight: 600;                                   /* Police semi-grasse */
+  text-transform: uppercase;                          /* Texte en majuscules */
+  letter-spacing: 1px;                               /* Espacement des lettres */
+}
+
+/* ===== BOUTONS GÉNÉRAUX ===== */
+.btn {
+  font-weight: 600 !important;                       /* Police semi-grasse */
+  border-radius: 0.75rem !important;                 /* Coins arrondis */
+  padding: 0.7rem 1.4rem !important;                 /* Espacement interne */
+  transition: var(--transition);                     /* Transition fluide */
+  position: relative;                                /* Pour pseudo-éléments */
+  overflow: hidden;                                  /* Cacher débordement */
+  border: none !important;                           /* Pas de bordure par défaut */
+}
+
+/* Effet de brillance pour tous les boutons */
+.btn::before {
+  content: '';                                       /* Contenu vide */
+  position: absolute;                                /* Positionnement absolu */
+  top: 0;
+  left: -100%;                                      /* Démarrer hors du bouton */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Brillance */
+  transition: left 0.5s ease;                       /* Animation de déplacement */
+}
+
+.btn:hover::before {
+  left: 100%;                                       /* Traverser au survol */
+}
+
+/* Boutons avec contour */
+.btn-outline-primary {
+  background: transparent !important;               /* Fond transparent */
+  color: var(--primary) !important;                 /* Texte bleu */
+  border: 2px solid var(--primary) !important;      /* Bordure bleue */
+}
+
+.btn-outline-primary:hover {
+  background: var(--gradient) !important;           /* Fond dégradé au survol */
+  color: white !important;                          /* Texte blanc au survol */
+  box-shadow: var(--shadow);                        /* Ombre au survol */
+  transform: translateY(-2px);                      /* Élévation au survol */
+}
+
+/* Boutons principaux */
+.btn-primary {
+  background: var(--gradient) !important;           /* Fond dégradé */
+  color: white !important;                          /* Texte blanc */
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);                      /* Élévation au survol */
+  box-shadow: var(--shadow);                        /* Ombre au survol */
+}
+
+/* ===== GRAPHIQUE ===== */
+#consumptionChart {
+  background: rgba(255, 255, 255, 0.8);            /* Fond blanc semi-transparent */
+  padding: 1rem;                                    /* Espacement interne */
+  border-radius: 12px;                              /* Coins arrondis */
+  box-shadow: var(--shadow);                        /* Ombre douce */
+}
+
+/* ===== TABLEAU ===== */
+.table {
+  border-radius: var(--radius);                     /* Coins arrondis */
+  overflow: hidden;                                 /* Cacher débordement pour coins arrondis */
+  background: white;                                /* Fond blanc */
+  box-shadow: var(--shadow);                        /* Ombre douce */
+  font-size: 0.95rem;                              /* Taille de police légèrement réduite */
+}
+
+/* En-têtes du tableau */
+.table thead th {
+  background: var(--gradient);                      /* Fond dégradé */
+  color: white;                                     /* Texte blanc */
+  padding: 1rem;                                    /* Espacement interne */
+  border: none;                                     /* Pas de bordure */
+  text-transform: uppercase;                        /* Texte en majuscules */
+  font-weight: 600;                                 /* Police semi-grasse */
+}
+
+/* Cellules du tableau */
+.table tbody td {
+  padding: 1rem;                                    /* Espacement interne */
+  border-bottom: 1px solid #e2e8f0;                /* Bordure inférieure subtile */
+  color: var(--text);                               /* Couleur du texte */
+}
+
+/* Effet de survol des lignes du tableau */
+.table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.06);            /* Fond bleu très clair */
+  transition: var(--transition);                    /* Transition fluide */
+  transform: translateX(5px);                       /* Léger décalage horizontal */
+}
+
+/* ===== BADGES DE STATUT ===== */
+/* Badge pour factures payées */
+.status-paid {
+  background: var(--success);                       /* Fond vert */
+  color: white;                                     /* Texte blanc */
+  padding: 0.3rem 0.8rem;                          /* Espacement interne */
+  border-radius: 20px;                             /* Coins très arrondis */
+  font-size: 0.75rem;                              /* Petite taille de police */
+  font-weight: 600;                                 /* Police semi-grasse */
+  text-transform: uppercase;                        /* Texte en majuscules */
+}
+
+/* Badge pour factures impayées */
+.status-unpaid {
+  background: var(--warning);                       /* Fond orange */
+  color: white;                                     /* Texte blanc */
+  padding: 0.3rem 0.8rem;                          /* Espacement interne */
+  border-radius: 20px;                             /* Coins très arrondis */
+  font-size: 0.75rem;                              /* Petite taille de police */
+  font-weight: 600;                                 /* Police semi-grasse */
+  text-transform: uppercase;                        /* Texte en majuscules */
+}
+
+/* ===== LIGNE DE SÉPARATION ===== */
+hr {
+  border: none;                                     /* Pas de bordure par défaut */
+  height: 2px;                                      /* Hauteur de la ligne */
+  background: linear-gradient(to right, transparent, var(--primary), transparent); /* Dégradé horizontal */
+  margin: 3rem 0;                                   /* Espacement vertical généreux */
+}
+
+/* ===== ANIMATIONS ===== */
+/* Animation d'apparition en fondu */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);                    /* Démarrer légèrement vers le bas */
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);                       /* Position finale normale */
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+/* Styles pour écrans mobiles et tablettes */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;                                  /* Réduire l'espacement sur mobile */
+  }
+
+  .section {
+    padding: 1.5rem;                                /* Réduire l'espacement des sections */
+  }
+
+  .section h2 {
+    font-size: 1.4rem;                              /* Réduire la taille des titres */
+  }
+
+  .stats-card {
+    padding: 1.5rem;                                /* Réduire l'espacement des cartes */
+    margin-bottom: 1rem;                            /* Réduire l'espacement entre cartes */
+  }
+
+  .stats-value {
+    font-size: 2rem;                                /* Réduire la taille des valeurs */
+  }
+
+  .stats-label {
+    font-size: 0.85rem;                             /* Réduire la taille des labels */
+  }
+
+  .table {
+    font-size: 0.85rem;                             /* Réduire la taille du texte du tableau */
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem !important;              /* Réduire l'espacement des boutons */
+    font-size: 0.9rem !important;                   /* Réduire la taille du texte des boutons */
+  }
+
+  #logoutBtn {
+    padding: 0.4rem 0.8rem !important;              /* Réduire l'espacement du bouton déconnexion */
+    font-size: 0.85rem !important;                  /* Réduire sa taille de police */
+  }
+}

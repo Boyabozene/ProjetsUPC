@@ -1,0 +1,306 @@
+/* ===== VARIABLES CSS GLOBALES ===== */
+:root {
+  /* Couleurs principales */
+  --primary: #1e3a8a;              /* Bleu principal foncé */
+  --primary-light: #3b82f6;        /* Bleu principal clair */
+  --secondary: #475569;            /* Gris secondaire */
+  --accent: #0ea5e9;               /* Bleu accent (cyan) */
+  --error: #dc2626;                /* Rouge pour les erreurs */
+  
+  /* Couleurs de texte */
+  --text: #0f172a;                 /* Texte principal sombre */
+  --text-light: #475569;           /* Texte secondaire gris */
+  --white: #ffffff;                /* Blanc pur */
+  --bg: #f8fafc;                   /* Arrière-plan clair */
+  
+  /* Effets visuels */
+  --shadow: 0 4px 12px rgba(15, 23, 42, 0.08);      /* Ombre douce */
+  --shadow-lg: 0 10px 40px rgba(15, 23, 42, 0.12);  /* Ombre marquée */
+  --radius: 0.75rem;               /* Rayon de bordure standard */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transition fluide */
+}
+
+/* ===== ANIMATION DE CHARGEMENT DE PAGE ===== */
+.page-loader {
+  position: fixed;                 /* Positionnement fixe pour couvrir toute la page */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);      /* Fond bleu principal */
+  display: flex;                   /* Flexbox pour centrage */
+  align-items: center;             /* Centrage vertical */
+  justify-content: center;         /* Centrage horizontal */
+  z-index: 10000;                  /* Au-dessus de tout le contenu */
+  transition: opacity 0.5s ease, visibility 0.5s ease; /* Transition de disparition */
+}
+
+.loader-content {
+  text-align: center;              /* Centrage du texte */
+  color: white;                    /* Texte blanc */
+}
+
+/* Spinner de chargement */
+.loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.2);      /* Bordure transparente */
+  border-top: 4px solid white;                      /* Bordure supérieure blanche */
+  border-radius: 50%;                               /* Forme circulaire */
+  animation: spin 1s linear infinite;               /* Animation de rotation */
+  margin: 0 auto 20px;                              /* Centrage et espacement */
+}
+
+/* Animation de rotation du spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* État caché du loader */
+.page-loader.hidden {
+  opacity: 0;                      /* Invisible */
+  visibility: hidden;              /* Non visible pour les lecteurs d'écran */
+}
+
+/* ===== STYLES DE BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;          /* Inclure padding/border dans la taille */
+}
+
+body {
+  font-family: 'Inter', sans-serif; /* Police moderne */
+  background: linear-gradient(135deg, var(--primary), var(--primary-light)); /* Dégradé bleu */
+  display: flex;                   /* Flexbox pour centrage */
+  align-items: center;             /* Centrage vertical */
+  justify-content: center;         /* Centrage horizontal */
+  min-height: 100vh;               /* Hauteur minimale plein écran */
+  overflow: hidden;                /* Empêcher le défilement */
+  position: relative;              /* Pour pseudo-éléments */
+  opacity: 0;                      /* Invisible au chargement */
+  animation: fadeInPage 0.8s ease-out forwards; /* Animation d'apparition */
+  animation-delay: 0.5s;           /* Délai avant apparition */
+}
+
+/* Animation d'apparition de la page */
+@keyframes fadeInPage {
+  to { opacity: 1; }
+}
+
+/* ===== FOND ANIMÉ SUBTIL ===== */
+/* Motif de points en arrière-plan */
+body::before {
+  content: '';                     /* Contenu vide */
+  position: absolute;              /* Positionnement absolu */
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px); /* Motif de points */
+  background-size: 60px 60px;      /* Taille du motif */
+  animation: moveBackground 40s linear infinite; /* Animation de déplacement */
+  z-index: 0;                      /* Derrière le contenu */
+}
+
+/* Animation de déplacement du fond */
+@keyframes moveBackground {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+.container {
+  position: relative;              /* Au-dessus du fond animé */
+  z-index: 1;
+}
+
+/* ===== CARTE DE CONNEXION ===== */
+.login-card {
+  background: var(--white);        /* Fond blanc */
+  padding: 3rem 2rem;              /* Espacement interne généreux */
+  border-radius: var(--radius);    /* Coins arrondis */
+  box-shadow: var(--shadow-lg);    /* Ombre marquée */
+  max-width: 400px;                /* Largeur maximale */
+  width: 100%;                     /* Largeur complète disponible */
+  animation: slideIn 0.6s ease-out; /* Animation d'entrée */
+  border-top: 4px solid var(--primary); /* Bordure supérieure bleue */
+}
+
+/* Animation d'entrée de la carte */
+@keyframes slideIn {
+  from {
+    opacity: 0;                    /* Invisible au début */
+    transform: translateY(30px);   /* Décalée vers le bas */
+  }
+  to {
+    opacity: 1;                    /* Visible à la fin */
+    transform: translateY(0);      /* Position normale */
+  }
+}
+
+/* ===== TITRE DE LA CARTE ===== */
+h2 {
+  text-align: center;              /* Texte centré */
+  font-weight: 800;                /* Police très grasse */
+  color: var(--text);              /* Couleur sombre */
+  margin-bottom: 2rem;             /* Espacement sous le titre */
+  font-size: 2rem;                 /* Grande taille */
+  position: relative;              /* Pour pseudo-élément */
+}
+
+/* Ligne décorative sous le titre */
+h2::after {
+  content: '';                     /* Contenu vide */
+  display: block;                  /* Affichage en bloc */
+  width: 60px;                     /* Largeur de la ligne */
+  height: 3px;                     /* Hauteur de la ligne */
+  background: var(--primary);      /* Couleur bleue */
+  margin: 1rem auto 0;             /* Centrage et espacement */
+  border-radius: 2px;              /* Coins légèrement arrondis */
+}
+
+/* ===== CHAMPS DE FORMULAIRE ===== */
+.form-label {
+  font-weight: 600;                /* Police semi-grasse */
+  color: var(--text);              /* Couleur sombre */
+  font-size: 0.9rem;               /* Taille légèrement réduite */
+}
+
+.form-control {
+  padding: 0.75rem 1rem;           /* Espacement interne */
+  border: 2px solid var(--border); /* Bordure grise */
+  border-radius: var(--radius);    /* Coins arrondis */
+  background: var(--white);        /* Fond blanc */
+  font-size: 1rem;                 /* Taille de police normale */
+  transition: var(--transition);   /* Transition fluide */
+  color: var(--text);              /* Couleur du texte */
+}
+
+/* État focus des champs */
+.form-control:focus {
+  border-color: var(--primary);    /* Bordure bleue au focus */
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1); /* Ombre bleue subtile */
+  transform: translateY(-1px);     /* Légère élévation */
+  outline: none;                   /* Supprimer l'outline par défaut */
+}
+
+/* Placeholder des champs */
+.form-control::placeholder {
+  color: var(--text-light);        /* Couleur grise claire */
+}
+
+/* ===== BOUTON DE CONNEXION ===== */
+.btn-primary {
+  background: var(--primary) !important;      /* Fond bleu principal */
+  border: none !important;                    /* Pas de bordure */
+  border-radius: var(--radius) !important;    /* Coins arrondis */
+  padding: 0.9rem !important;                 /* Espacement interne */
+  font-weight: 600 !important;                /* Police semi-grasse */
+  font-size: 1rem !important;                 /* Taille de police */
+  width: 100% !important;                     /* Largeur complète */
+  color: white !important;                    /* Texte blanc */
+  transition: var(--transition) !important;   /* Transition fluide */
+  position: relative !important;              /* Pour pseudo-éléments */
+  overflow: hidden !important;                /* Cacher débordement */
+  text-transform: uppercase !important;       /* Texte en majuscules */
+  letter-spacing: 0.5px !important;           /* Espacement des lettres */
+}
+
+/* Effet de survol du bouton */
+.btn-primary:hover {
+  background: var(--primary-light) !important; /* Couleur plus claire au survol */
+  transform: translateY(-2px);                 /* Élévation au survol */
+  box-shadow: var(--shadow-lg);                /* Ombre marquée */
+}
+
+/* Effet de brillance au survol */
+.btn-primary::before {
+  content: '';                                /* Contenu vide */
+  position: absolute;                         /* Positionnement absolu */
+  top: 0;
+  left: -100%;                               /* Démarrer hors du bouton */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Brillance */
+  transition: left 0.5s ease;                /* Animation de déplacement */
+}
+
+.btn-primary:hover::before {
+  left: 100%;                                /* Traverser le bouton au survol */
+}
+
+/* ===== ALERTE D'ERREUR ===== */
+.alert-danger {
+  background: rgba(220, 38, 38, 0.08);       /* Fond rouge très clair */
+  border: 1px solid rgba(220, 38, 38, 0.2);  /* Bordure rouge claire */
+  color: var(--error);                       /* Texte rouge */
+  font-weight: 500;                          /* Police moyenne */
+  border-radius: var(--radius);              /* Coins arrondis */
+  padding: 1rem;                             /* Espacement interne */
+  margin-top: 1rem;                          /* Espacement au-dessus */
+}
+
+/* ===== FORMES DÉCORATIVES ===== */
+.floating-shapes {
+  position: absolute;              /* Positionnement absolu */
+  inset: 0;                       /* Couvrir toute la page */
+  pointer-events: none;           /* Ne pas interférer avec les clics */
+  z-index: 0;                     /* Derrière le contenu */
+}
+
+.shape {
+  position: absolute;             /* Positionnement absolu */
+  background: rgba(255, 255, 255, 0.05); /* Fond blanc semi-transparent */
+  border-radius: 50%;             /* Forme circulaire */
+}
+
+/* Positionnement et tailles différentes pour chaque forme */
+.shape:nth-child(1) {
+  width: 90px;
+  height: 90px;
+  top: 10%;
+  left: 5%;
+  animation: float 6s ease-in-out infinite; /* Animation de flottement */
+}
+
+.shape:nth-child(2) {
+  width: 120px;
+  height: 120px;
+  top: 75%;
+  right: 8%;
+  animation: float 8s ease-in-out infinite reverse; /* Animation inversée */
+}
+
+.shape:nth-child(3) {
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 80%;
+  animation: float 7s ease-in-out infinite; /* Animation de flottement */
+}
+
+/* Animation de flottement des formes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);     /* Position normale */
+    opacity: 0.3;                   /* Opacité faible */
+  }
+  50% {
+    transform: translateY(-20px);   /* Élévation au milieu */
+    opacity: 0.8;                   /* Opacité plus forte */
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+/* Styles pour écrans mobiles et tablettes */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 2rem;                  /* Réduire l'espacement sur mobile */
+    margin: 1rem;                   /* Ajouter une marge sur mobile */
+  }
+
+  h2 {
+    font-size: 1.7rem;              /* Réduire la taille du titre */
+  }
+}
