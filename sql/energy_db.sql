@@ -1,200 +1,158 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3309
--- Généré le : mer. 16 juil. 2025 à 15:48
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- =====================================================
+-- SCRIPT DE CRÉATION DE LA BASE DE DONNÉES ENERGY+
+-- =====================================================
+-- Version: 2.0
+-- Auteur: Boybabozene Buyingo
+-- Date: Juillet 2025
+-- Description: Structure complète de la base de données
+--              pour l'application de gestion de consommation électrique
+-- =====================================================
 
+-- Configuration de l'environnement MySQL
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
+-- Configuration de l'encodage des caractères
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+-- =====================================================
+-- CRÉATION DE LA BASE DE DONNÉES
+-- =====================================================
+
 --
 -- Base de données : `energy_db`
+-- Encodage: utf8mb4 pour support Unicode complet
 --
 
--- --------------------------------------------------------
-
---
--- Structure de la table `consumption`
---
-
-CREATE TABLE `consumption` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `date` datetime DEFAULT current_timestamp(),
-  `kwh` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `consumption`
---
-
-INSERT INTO `consumption` (`id`, `user_id`, `date`, `kwh`) VALUES
-(1, 1, '2025-07-16 00:00:00', 5),
-(2, 1, '2025-07-16 00:00:00', 19),
-(3, 1, '2025-07-16 00:00:00', 17),
-(4, 1, '2025-07-16 00:00:00', 5),
-(5, 1, '2025-07-16 00:00:00', 10),
-(6, 1, '2025-07-16 00:00:00', 7),
-(7, 1, '2025-07-16 00:00:00', 15),
-(8, 1, '2025-07-16 00:00:00', 7),
-(9, 1, '2025-07-16 00:00:00', 18),
-(10, 1, '2025-07-16 00:00:00', 16),
-(11, 1, '2025-07-16 14:46:56', 18),
-(12, 1, '2025-07-16 14:46:58', 17),
-(13, 1, '2025-07-16 14:46:59', 6),
-(14, 1, '2025-07-16 14:47:00', 5),
-(15, 1, '2025-07-16 14:47:00', 13),
-(16, 1, '2025-07-16 14:47:00', 17),
-(17, 1, '2025-07-16 14:47:00', 19),
-(18, 1, '2025-07-16 14:47:01', 16),
-(19, 1, '2025-07-16 14:47:01', 11),
-(20, 1, '2025-07-16 14:47:01', 11),
-(21, 1, '2025-07-16 14:47:01', 9),
-(22, 1, '2025-07-16 14:47:01', 20),
-(23, 1, '2025-07-16 14:47:02', 10),
-(24, 1, '2025-07-16 14:47:02', 19),
-(25, 1, '2025-07-16 14:47:02', 6),
-(26, 1, '2025-07-16 14:47:02', 12),
-(27, 1, '2025-07-16 14:47:02', 13),
-(28, 1, '2025-07-16 14:47:03', 10),
-(29, 1, '2025-07-16 14:47:03', 18),
-(30, 1, '2025-07-16 14:47:03', 15),
-(31, 1, '2025-07-16 14:47:03', 19),
-(32, 1, '2025-07-16 14:47:04', 8),
-(33, 1, '2025-07-16 14:47:04', 10),
-(34, 1, '2025-07-16 14:47:04', 13),
-(35, 1, '2025-07-16 14:47:04', 19),
-(36, 1, '2025-07-16 14:47:04', 14),
-(37, 1, '2025-07-16 14:47:05', 5),
-(38, 1, '2025-07-16 14:47:05', 13),
-(39, 1, '2025-07-16 14:47:05', 6),
-(40, 1, '2025-07-16 14:47:05', 15),
-(41, 1, '2025-07-16 14:47:06', 19),
-(42, 1, '2025-07-16 14:47:06', 9),
-(43, 1, '2025-07-16 14:47:06', 13),
-(44, 1, '2025-07-16 14:47:06', 17);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `invoices`
---
-
-CREATE TABLE `invoices` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `amount` int(11) DEFAULT NULL,
-  `status` enum('unpaid','paid') DEFAULT 'unpaid',
-  `issued_at` datetime DEFAULT NULL,
-  `paid_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `invoices`
---
-
-INSERT INTO `invoices` (`id`, `user_id`, `amount`, `status`, `issued_at`, `paid_at`) VALUES
-(1, 1, 0, 'paid', '2025-07-16 14:37:51', '2025-07-16 14:37:56'),
-(2, 1, 500, 'paid', '2025-07-16 14:38:16', '2025-07-16 14:38:20'),
-(3, 1, 10300, 'paid', '2025-07-16 14:38:52', '2025-07-16 14:38:58'),
-(4, 1, 11900, 'unpaid', '2025-07-16 14:46:51', NULL);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `users`
---
+-- =====================================================
+-- TABLE: users
+-- =====================================================
+-- Description: Stocke les informations des utilisateurs/clients
+-- Rôle: Gestion de l'authentification et profils utilisateurs
+-- =====================================================
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT 'Nom complet de l\'utilisateur',
+  `email` varchar(100) NOT NULL UNIQUE COMMENT 'Adresse email (identifiant de connexion)',
+  `password` varchar(255) NOT NULL COMMENT 'Mot de passe hashé avec PHP password_hash()',
+  
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  
+  -- Index pour optimiser les recherches par email
+  KEY `idx_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+COMMENT='Table des utilisateurs/clients Energy+';
 
---
--- Déchargement des données de la table `users`
---
+-- =====================================================
+-- TABLE: consumption
+-- =====================================================
+-- Description: Enregistre la consommation électrique en temps réel
+-- Rôle: Tracking de la consommation par utilisateur avec horodatage
+-- =====================================================
+
+CREATE TABLE `consumption` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT 'Référence vers l\'utilisateur',
+  `date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Horodatage de l\'enregistrement',
+  `kwh` int(11) NOT NULL COMMENT 'Consommation en kWh pour cet intervalle',
+  
+  PRIMARY KEY (`id`),
+  
+  -- Clé étrangère vers la table users
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  
+  -- Index composé pour optimiser les requêtes par utilisateur et date
+  KEY `idx_user_date` (`user_id`, `date`),
+  KEY `idx_date` (`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+COMMENT='Enregistrements de consommation électrique';
+
+-- =====================================================
+-- TABLE: invoices
+-- =====================================================
+-- Description: Gestion des factures électriques
+-- Rôle: Facturation basée sur la consommation avec suivi des paiements
+-- =====================================================
+
+CREATE TABLE `invoices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT 'Référence vers l\'utilisateur facturé',
+  `amount` int(11) NOT NULL COMMENT 'Montant de la facture en Francs Congolais (FC)',
+  `status` enum('unpaid','paid') DEFAULT 'unpaid' COMMENT 'Statut de paiement de la facture',
+  `issued_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Date d\'émission de la facture',
+  `paid_at` datetime DEFAULT NULL COMMENT 'Date de paiement (NULL si impayée)',
+  
+  PRIMARY KEY (`id`),
+  
+  -- Clé étrangère vers la table users
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  
+  -- Index pour optimiser les requêtes de facturation
+  KEY `idx_user_status` (`user_id`, `status`),
+  KEY `idx_issued_date` (`issued_at`),
+  KEY `idx_paid_date` (`paid_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+COMMENT='Factures électriques et suivi des paiements';
+
+-- =====================================================
+-- DONNÉES DE TEST
+-- =====================================================
+-- Utilisateurs de démonstration avec mots de passe hashés
+-- Tous les mots de passe suivent le format: [nom]123
+-- =====================================================
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+-- Utilisateur de démonstration principal
+-- Email: demo@example.com, Mot de passe: demo123
 (1, 'Demo User', 'demo@example.com', '$2y$10$nt/QGZNsd64Anm3HEuAIqOwP7SZD4L7UPfkV/d06GAstiCgZ75C8W'),
-(2, 'Alice', 'alice@example.com', '$2y$10$KTge/Hf/ynopZP/sa29Qve3jgbabsVrcbjnKIlC2A1irLcrsTDTVW'),
-(3, 'Bob', 'bob@example.com', '$2y$10$wrJUscGmdPSUygT3xk4bO.IzrnfyAwvPQNhN7xlF2XU4I9KwH2x3G');
 
---
--- Index pour les tables déchargées
---
+-- Utilisatrice Alice
+-- Email: alice@example.com, Mot de passe: alice123
+(2, 'Alice Makamba', 'alice@example.com', '$2y$10$KTge/Hf/ynopZP/sa29Qve3jgbabsVrcbjnKIlC2A1irLcrsTDTVW'),
 
---
--- Index pour la table `consumption`
---
+-- Utilisateur Bob
+-- Email: bob@example.com, Mot de passe: bob123
+(3, 'Bob Tshisekedi', 'bob@example.com', '$2y$10$wrJUscGmdPSUygT3xk4bO.IzrnfyAwvPQNhN7xlF2XU4I9KwH2x3G');
+
+-- =====================================================
+-- CONFIGURATION DES AUTO_INCREMENT
+-- =====================================================
+-- Définir les valeurs de départ pour les clés primaires
+-- =====================================================
+
 ALTER TABLE `consumption`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- Index pour la table `invoices`
---
 ALTER TABLE `invoices`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `consumption`
---
-ALTER TABLE `consumption`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
-
---
--- AUTO_INCREMENT pour la table `invoices`
---
-ALTER TABLE `invoices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT pour la table `users`
---
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- Contraintes pour les tables déchargées
---
+-- =====================================================
+-- FINALISATION
+-- =====================================================
 
---
--- Contraintes pour la table `consumption`
---
-ALTER TABLE `consumption`
-  ADD CONSTRAINT `consumption_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Contraintes pour la table `invoices`
---
-ALTER TABLE `invoices`
-  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
+-- Restauration de la configuration d'encodage précédente
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- =====================================================
+-- NOTES D'UTILISATION
+-- =====================================================
+-- 1. Tarif électrique: 100 FC par kWh
+-- 2. Les sessions utilisateur expirent après 1 heure d'inactivité
+-- 3. Les factures incluent automatiquement:
+--    - Frais de service: 1,500 FC
+--    - TVA: 16%
+-- 4. Génération PDF disponible uniquement pour factures payées
+-- =====================================================
